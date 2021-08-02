@@ -1,0 +1,62 @@
+<div id="formdiv">
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <form [formGroup]="userForm">
+                <div formArrayName="userArray">
+                  <div *ngFor="let form of userArrayControls; let i = index">
+                    <div [formGroupName]="i">
+                      <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && currentFormArray(i).controls.firstName.errors }" />
+                        <div *ngIf="submitted && currentFormArray(i).controls.firstName.errors" class="invalid-feedback">
+                          <div *ngIf="currentFormArray(i).controls.firstName.errors.required">First Name is required</div>
+                          <div *ngIf="currentFormArray(i).controls.firstName.errors.minlength">length mast be minimum 3</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && currentFormArray(i).controls.lastName.errors }" />
+                        <div *ngIf="submitted && currentFormArray(i).controls.lastName.errors" class="invalid-feedback">
+                          <div *ngIf="currentFormArray(i).controls.lastName.errors.required">Last Name is required</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && currentFormArray(i).controls.email.errors }" />
+                        <div *ngIf="submitted && currentFormArray(i).controls.email.errors" class="invalid-feedback">
+                          <span *ngIf="currentFormArray(i).controls.email.invalid && (currentFormArray(i).controls.email.dirty || currentFormArray(i).controls.email.touched)">Email is required</span>
+                          <div *ngIf="currentFormArray(i).controls.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && currentFormArray(i).controls.password.errors }" />
+                        <div *ngIf="submitted && currentFormArray(i).controls.password.errors" class="invalid-feedback">
+                          <div *ngIf="currentFormArray(i).controls.password.errors.required">Password is required</div>
+                          <div *ngIf="currentFormArray(i).controls.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && currentFormArray(i).controls.confirmPassword.errors }" />
+                        <div *ngIf="submitted && currentFormArray(i).controls.confirmPassword.errors" class="invalid-feedback">
+                          <div *ngIf="currentFormArray(i).controls.confirmPassword.errors.required">Confirm Password is required</div>
+                          <div *ngIf="currentFormArray(i).controls.confirmPassword.errors.mustMatch">Passwords must match</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <button class="btn-btn-primary btn1" (click)="addForm()">Add</button>
+                        <button class="btn-btn-primary btn2" (click)="deleteForm(i)">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+                <button class="btn-btn-primary" (click) = "onSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
